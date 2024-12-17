@@ -13,6 +13,7 @@
             height: 100vh;
             margin: 0;
             background-color: #f4f4f9;
+            overflow: hidden;
         }
 
         .container {
@@ -21,6 +22,12 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         button {
@@ -32,10 +39,28 @@
             border-radius: 5px;
             background-color: #007bff;
             color: white;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
             background-color: #0056b3;
+        }
+
+        #fact-container {
+            margin-top: 20px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -44,25 +69,37 @@
         <h1>Coding Fun Fact Generator</h1>
         <div id="fact-container">
             <p id="fact"></p>
+            <img id="fact-image" src="" alt="Fun Fact Image" style="display: none;">
         </div>
         <button onclick="generateFunFact()">Show me a fun fact!</button>
     </div>
     <script>
         const funFacts = [
-            "The first computer bug was an actual bug! In 1947, a moth was found trapped in a relay of the Harvard Mark II computer.",
-            "The first programmer was Ada Lovelace, who wrote an algorithm for Charles Babbage's early mechanical general-purpose computer, the Analytical Engine.",
-            "The term 'debugging' was popularized by Grace Hopper, a pioneering computer scientist, after the moth incident.",
-            "The first computer virus was created in 1983 by a 15-year-old student named Rich Skrenta. It was called the 'Elk Cloner' and targeted Apple II computers.",
-            "The original name for Windows was 'Interface Manager.'",
-            "The first 1GB hard drive was announced in 1980, weighed over 500 pounds, and cost $40,000.",
-            "The first email was sent by Ray Tomlinson to himself in 1971. It was a test message that said 'QWERTYUIOP.'",
-            "The first website ever created is still online. It was created by Tim Berners-Lee in 1991 and is about the World Wide Web project."
+            {
+                "fact": "The first computer bug was an actual bug! In 1947, a moth was found trapped in a relay of the Harvard Mark II computer.",
+                "image": "https://example.com/moth.jpg"
+            },
+            {
+                "fact": "The first programmer was Ada Lovelace, who wrote an algorithm for Charles Babbage's early mechanical general-purpose computer, the Analytical Engine.",
+                "image": "https://example.com/adalovelace.jpg"
+            },
+            {
+                "fact": "The term 'debugging' was popularized by Grace Hopper, a pioneering computer scientist, after the moth incident.",
+                "image": "https://example.com/gracehopper.jpg"
+            },
+            {
+                "fact": "The first computer virus was created in 1983 by a 15-year-old student named Rich Skrenta. It was called the 'Elk Cloner' and targeted Apple II computers.",
+                "image": "https://example.com/elkcloner.jpg"
+            }
         ];
 
         function generateFunFact() {
             const randomIndex = Math.floor(Math.random() * funFacts.length);
             const fact = funFacts[randomIndex];
-            document.getElementById('fact').textContent = fact;
+            document.getElementById('fact').textContent = fact.fact;
+            const factImage = document.getElementById('fact-image');
+            factImage.src = fact.image;
+            factImage.style.display = 'block';
         }
     </script>
 </body>
